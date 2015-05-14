@@ -42,8 +42,6 @@ def get_cpu_temp():
 def get_gpu_temp():
     gpu_temp = commands.getoutput( '/opt/vc/bin/vcgencmd measure_temp' ).replace( 'temp=',''  ).replace('\'C', '' )
     return  float(gpu_temp)
-    # Uncomment the next line if you want the temp in Fahrenheit
-    # return float(1.8* gpu_temp)+32
 # Color definitions
 BLACK    = 0x0000
 BLUE     = 0x001F
@@ -59,10 +57,8 @@ disp.begin()
 c = 0
 
 # Create image buffer.
-# Make sure to create image with mode '1' for 1-bit color.
-#image = Image.new('1', (128, 128))
 
-im=Image.open("/home/test.jpg")
+im=Image.open("test.jpg")
 imi=im.convert('RGB')
 disp.image(list(imi.getdata()))
 time.sleep(30)
@@ -99,14 +95,6 @@ col=1
 font2 = ImageFont.truetype("/usr/share/fonts/truetype/msyhl.ttc",siz)
 
 while True:
-    #if col<=65530:
-    #    col=col+100
-    #else:
-    #    col=1#
-#
- #   print col
-    #break
-    # Clear image buffer by drawing a black filled box.
 
     draw.rectangle((0,0,128,128), outline=0, fill=0x000000)
     # Enumerate characters and draw them offset vertically based on a sine wave.
@@ -120,10 +108,8 @@ while True:
         if ic<=icc:
             ic=icc
     fps=ic/60
-    #text=u"我最最亲爱的妮妮,我爱你到永远!爱你的老爸."
-    text=os.popen('uptime').read()
-    #runs=os.popen('uptime')
-    #text=text+str(runs)
+    text=u"我最最亲爱的妮妮,我爱你到永远!爱你的老爸."
+    #text=os.popen('uptime').read()
     for i, c in enumerate(text):
         # Stop drawing if off the right side of screen.
         if x > 128:
@@ -153,11 +139,6 @@ while True:
     disp.normal_display()
     pix=list(image.getdata())
     disp.image(pix)
-    #disp.image(pix[:128*64])
-    #disp.image(numpy.array(image))
-
-    #disp.display()
-    # Move position for next frame.
     pos += velocity
     # Start over if text has scrolled completely off left side of screen.
     if pos < -maxwidth:
@@ -167,13 +148,6 @@ while True:
 
 
 while True:
-   # disp.clear_display()
-   # disp.draw_text(0,0,'wujing 2015 2010',0xFF00FF) # should be purple
-    #disp.draw_text3(64,0,"test form cc",ImageFont.load_default())
-
-    # disp.dump_buffer()
-    #disp.command(0xa4)
-   # time.sleep(2)
     break
     disp.clear_display()
     print 'red'
@@ -187,13 +161,11 @@ while True:
     
     disp.clear_display()
     print 'blue'
-    # disp.fillScreen(0b000000000000000011111111)
     disp.fillScreen(0x0000ff)
     time.sleep(0.001)
 
     disp.clear_display()
     print 'white'
-    # disp.fillScreen(0b000000000000000011111111)
     disp.fillScreen(0xffffff)
     time.sleep(0.001)
 
